@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saviour — Login / Signup</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="auth-body">
+
+    <button id="backFromAuth" class="back-btn" aria-label="Back">←</button>
+
+    <div class="auth-wrapper">
+
+        <h1 class="auth-logo">
+            <img src="KK.png" alt="SaviourPro" id="authLogoImg">
+        </h1>
+
+        <div class="auth-card">
+
+            <div class="tab-box">
+                <button class="tab active" id="loginTab">Login</button>
+                <button class="tab" id="signupTab">Sign Up</button>
+            </div>
+
+            <!-- LOGIN -->
+            <form id="loginForm" class="form">
+                <label>Email or Username</label>
+                <input type="text" id="loginUser">
+
+                <label>Password</label>
+                <div class="password-box">
+                    <input type="password" id="loginPass">
+                    <span id="toggleLoginEye" class="eye">👁</span>
+                </div>
+
+                <a id="forgotBtn" class="forgot-link">Forgot password?</a>
+
+                <!-- Inline email input -->
+                <div id="recoverInline" class="recover-inline hidden">
+                    <p>Enter your email to receive recovery link.</p>
+                    <input type="email" id="recoverEmail" placeholder="Your email">
+                    <div class="recover-buttons">
+                        <button id="sendRecover" class="main-btn">Send</button>
+                        <button id="cancelRecover" class="secondary-btn">Cancel</button>
+                    </div>
+                </div>
+
+                <button type="button" id="loginBtn" class="main-btn">Login</button>
+            </form>
+
+            <!-- SIGNUP -->
+            <form id="signupForm" class="form hidden">
+
+                <label>Full Name</label>
+                <input type="text" id="su_name">
+
+                <label>Gender</label>
+                <select id="su_gender">
+                    <option value="">Select</option>
+                    <option>Male</option>
+                    <option>Female</option>
+                    <option>Other</option>
+                </select>
+
+                <label>Blood Group</label>
+                <select id="su_blood">
+                    <option value="">Select</option>
+                    <option>A+</option><option>A-</option>
+                    <option>B+</option><option>B-</option>
+                    <option>O+</option><option>O-</option>
+                    <option>AB+</option><option>AB-</option>
+                </select>
+
+                <label>Phone Number</label>
+                <input type="text" id="su_phone">
+
+                <label>City</label>
+                <input type="text" id="su_city">
+
+                <label>Area / Street</label>
+                <input type="text" id="su_area">
+
+                <label>Email</label>
+                <input type="email" id="su_email">
+
+                <label>Password</label>
+                <input type="password" id="su_pass">
+
+                <label>Confirm Password</label>
+                <input type="password" id="su_pass2">
+
+                <label class="checkbox">
+                    <input type="checkbox" id="su_isdonor">
+                    Mark as a donor
+                </label>
+
+                <button type="button" id="signupBtn" class="main-btn">Sign Up</button>
+            </form>
+
+        </div>
+    </div>
+
+<script src="script.js"></script>
+<script>
+    // Back button for auth page
+    (function(){
+        const b = document.getElementById('backFromAuth');
+        if(b) b.addEventListener('click', ()=> window.history.back());
+    })();
+</script>
+</body>
+</html>

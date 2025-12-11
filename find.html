@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Find Donors</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="find-body">
+
+  <header class="find-header">
+    <button id="backFromFind" class="back-btn" aria-label="Back">←</button>
+    <h1 class="find-title">FIND BLOOD DONORS</h1>
+    <button id="profileBtnFind" class="profile-fab" aria-label="Profile">👤</button>
+  </header>
+
+  <main class="find-main">
+    <form id="findForm" class="find-form" onsubmit="return false;">
+      <label class="f-label">Blood Group</label>
+      <select id="f_bg" class="f-select">
+        <option value="">Select blood group</option>
+        <option>A+</option><option>A-</option>
+        <option>B+</option><option>B-</option>
+        <option>O+</option><option>O-</option>
+        <option>AB+</option><option>AB-</option>
+      </select>
+
+      <label class="f-label">Division</label>
+      <select id="f_div" class="f-select">
+        <option value="">Select division</option>
+        <option>Dhaka</option><option>Chittagong</option><option>Khulna</option>
+        <option>Rajshahi</option><option>Barisal</option><option>Sylhet</option>
+        <option>Rangpur</option><option>Mymensingh</option>
+      </select>
+
+      <label class="f-label">District</label>
+      <select id="f_dist" class="f-select">
+        <option value="">Select district</option>
+        <option>Dhaka</option><option>Faridpur</option><option>Khulna</option>
+        <option>Jhenaidah</option><option>Chittagong</option><option>Noakhali</option>
+        <!-- add more as needed -->
+      </select>
+
+      <button id="findSearchBtn" class="main-btn" style="margin-top:18px;">Search</button>
+
+      <div style="text-align:center;margin:14px 0;color:#aaa">OR</div>
+
+      <button id="makeReqBtn" class="secondary-outline-btn" type="button">Make Blood Request</button>
+    </form>
+  </main>
+
+<script>
+  // Save filters & redirect back to explore
+  document.getElementById('findSearchBtn').addEventListener('click', function(){
+    const bg = document.getElementById('f_bg').value || '';
+    const div = document.getElementById('f_div').value || '';
+    const dist = document.getElementById('f_dist').value || '';
+    const criteria = {bg, div, dist};
+    localStorage.setItem('saviour_filters', JSON.stringify(criteria));
+    // go back to explore
+    window.location.href = 'explore.html';
+  });
+
+  // Make Blood Request -> open the full request page
+document.getElementById('makeReqBtn').addEventListener('click', function(){
+  window.location.href = 'request.html';
+});
+
+
+  // Back button (go back)
+  document.getElementById('backFromFind').addEventListener('click', function(){
+    window.history.back();
+  });
+
+  // profile icon in find page (open profile just like explore)
+  document.getElementById('profileBtnFind').addEventListener('click', function(){
+    // reuse profile modal on explore (we will open explore then trigger)
+    // simple behavior: go to explore and show profile after small delay
+    window.location.href = 'explore.html#openProfile';
+  });
+</script>
+
+</body>
+</html>

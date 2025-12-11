@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Post Blood Request</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="request-body">
+
+  <!-- header -->
+  <header class="find-header">
+    <button id="backFromRequest" class="back-btn">←</button>
+    <h1 class="find-title">POST BLOOD REQUEST</h1>
+    <button id="profileFabRequest" class="profile-fab" aria-label="Profile">👤</button>
+  </header>
+
+  <main class="find-main">
+    <form id="requestForm" class="find-form" onsubmit="return false;">
+      <input id="req_phone" type="tel" placeholder="phone number" class="f-input">
+
+      <select id="req_bg" class="f-select">
+        <option value="">Blood group</option>
+        <option>A+</option><option>A-</option>
+        <option>B+</option><option>B-</option>
+        <option>O+</option><option>O-</option>
+        <option>AB+</option><option>AB-</option>
+      </select>
+
+      <select id="req_dist" class="f-select">
+        <option value="">District</option>
+        <option>Dhaka</option><option>Khulna</option>
+        <option>Chittagong</option><option>Noakhali</option>
+        <option>Jhenaidah</option><!-- add more -->
+      </select>
+
+      <select id="req_div" class="f-select">
+        <option value="">Division</option>
+        <option>Dhaka</option><option>Chittagong</option><option>Khulna</option>
+      </select>
+
+      <textarea id="req_text" class="f-textarea" placeholder="Add text"></textarea>
+
+      <button id="uploadReq" class="main-btn" style="margin-top:8px;">Upload</button>
+
+      <div style="text-align:center;margin:18px 0;color:#aaa">OR</div>
+
+      <div style="display:flex;gap:14px;justify-content:center">
+        <button id="shareFb" type="button" class="social-btn">Facebook</button>
+        <button id="shareWa" type="button" class="social-btn">WhatsApp</button>
+      </div>
+    </form>
+  </main>
+
+<script>
+  // Back behavior
+  document.getElementById('backFromRequest').addEventListener('click', ()=> window.history.back());
+
+  // profile fab -> open profile on explore (same trick used earlier)
+  document.getElementById('profileFabRequest').addEventListener('click', ()=>{
+    window.location.href = 'explore.html#openProfile';
+  });
+
+  // Upload request (demo). Replace with actual API call as needed.
+  document.getElementById('uploadReq').addEventListener('click', function(){
+    const phone = document.getElementById('req_phone').value.trim();
+    const bg = document.getElementById('req_bg').value;
+    const dist = document.getElementById('req_dist').value;
+    const div = document.getElementById('req_div').value;
+    const text = document.getElementById('req_text').value.trim();
+
+    if(!phone || !bg || !dist || !div){
+      alert('Please fill phone, blood group, district and division.');
+      return;
+    }
+
+    // create demo object
+    const requestObj = { phone, bg, dist, div, text, createdAt: new Date().toISOString() };
+
+    // store in localStorage as demo "requests" list
+    const list = JSON.parse(localStorage.getItem('saviour_requests') || '[]');
+    list.unshift(requestObj);
+    localStorage.setItem('saviour_requests', JSON.stringify(list));
+
+    alert('Request uploaded (demo). It is saved locally.');
+
+    // optionally redirect to explore or clear form
+    // window.location.href = 'explore.html';
+    document.getElementById('requestForm').reset();
+  });
+
+  // Share buttons (demo)
+  document.getElementById('shareFb').addEventListener('click', ()=>{
+    const text = encodeURIComponent(document.getElementById('req_text').value || 'Need blood. Please help.');
+    const url = 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(location.href) + '&quote=' + text;
+    window.open(url, '_blank');
+  });
+
+  document.getElementById('shareWa').addEventListener('click', ()=>{
+    const text = encodeURIComponent(document.getElementById('req_text').value || 'Need blood. Please help. Phone:' + (document.getElementById('req_phone').value||''));
+    const url = 'https://wa.me/?text=' + text;
+    window.open(url, '_blank');
+  });
+</script>
+
+</body>
+</html>
